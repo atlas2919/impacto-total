@@ -601,8 +601,8 @@ footer {
     margin: 30px auto;
     padding: 10px 20px;
     font-size: 16px;
-    color: #6c757d;
-    background-color: #fff; /* color gris neutro */
+    color: #fff;
+    background-color: #6c757d; /* color gris neutro */
     border: none;
     border-radius: 4px;
     cursor: pointer;
