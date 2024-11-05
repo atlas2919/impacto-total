@@ -22,8 +22,8 @@
         </div>
     </header>
 
-    <!-- Formulario de inicio de sesión -->
     <main class="container">
+        <!-- Sección de inicio de sesión -->
         <section id="login-section">
             <h2>Iniciar Sesión</h2>
             <form id="login-form">
@@ -40,9 +40,17 @@
             <p id="login-message"></p>
         </section>
 
-        <!-- Formulario para agregar noticias, inicialmente oculto -->
+        <!-- Opciones de administración -->
+        <section id="admin-options" style="display: none;">
+            <h2>Administración de Noticias</h2>
+            <button id="btn-crear" class="admin-btn">Crear Noticia</button>
+            <button id="btn-modificar" class="admin-btn">Modificar Noticia</button>
+            <button id="btn-borrar" class="admin-btn">Borrar Noticia</button>
+        </section>
+
+        <!-- Formulario para agregar o modificar noticias, inicialmente oculto -->
         <section id="admin-section" style="display: none;">
-            <h2>Agregar Nueva Noticia</h2>
+            <h2 id="form-title">Crear Nueva Noticia</h2>
             <form id="nueva-noticia-form">
                 <div class="form-group">
                     <label for="titulo">Título</label>
@@ -54,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cuerpo">Cuerpo de la noticia</label>
-                    <div id="editor" style="height: 200px;"></div> <!-- Editor de Quill -->
+                    <div id="editor" style="height: 200px;"></div>
                 </div>
                 <div class="form-group">
                     <label for="imagen">URL de la imagen</label>
@@ -70,10 +78,37 @@
                         <option value="farandula">Farándula</option>
                     </select>
                 </div>
-                <button type="submit">Agregar Noticia</button>
-            </form>
+                    <button type="submit">Guardar Noticia</button>
+                </form>
             <p id="mensaje"></p>
+            <a href="#" id="btn-regresar-crear" class="regresar-btn">Regresar</a>
         </section>
+
+
+        <!-- Sección para modificar noticias -->
+        <section id="modify-section" style="display: none;">
+            <h2>Modificar Noticia</h2>
+            <div id="noticias-lista-modificar" class="cards-container"></div>
+            <a href="#" id="btn-regresar-modificar" class="regresar-btn">Regresar</a>
+        </section>
+
+        <!-- Sección para borrar noticias -->
+        <section id="delete-section" style="display: none;">
+            <h2>Borrar Noticia</h2>
+            <div id="noticias-lista-borrar" class="cards-container"></div> <!-- Contenedor para la lista de noticias -->
+            <p id="delete-message"></p>
+            <a href="#" id="btn-regresar-borrar" class="regresar-btn">Regresar</a>
+        </section>
+
+
+        <!-- Modal de confirmación para borrar noticia -->
+        <div id="confirmation-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <p>¿Estás seguro de borrar esta noticia?</p>
+                <button id="confirm-delete" class="modal-btn">Aceptar</button>
+                <button id="cancel-delete" class="modal-btn">Cancelar</button>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -90,7 +125,7 @@
     <!-- Quill JS -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
-    <!-- Configuración y lógica de autenticación y envío de noticias -->
+    <!-- Configuración y lógica de administración -->
     <script src="config.js"></script>
     <script src="admin.js"></script>
 </body>
