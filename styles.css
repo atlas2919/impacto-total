@@ -374,6 +374,58 @@ footer {
     margin-top: 1.5rem;
 }
 
+/* Estilos de Quill */
+#noticia-detalle h1,
+#noticia-detalle h2,
+#noticia-detalle h3,
+#noticia-detalle h4,
+#noticia-detalle h5,
+#noticia-detalle h6 {
+    color: var(--text);
+    margin: 1rem 0;
+}
+
+#noticia-detalle p,
+#noticia-detalle .ql-size-small,
+#noticia-detalle .ql-size-large,
+#noticia-detalle .ql-size-huge {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-light);
+    text-align: justify;
+    margin: 1.5rem 0;
+}
+
+/* Ajustes de tamaños para estilos de Quill */
+#noticia-detalle .ql-size-small {
+    font-size: 0.875rem;
+}
+#noticia-detalle .ql-size-large {
+    font-size: 1.25rem;
+}
+#noticia-detalle .ql-size-huge {
+    font-size: 1.5rem;
+}
+
+/* Estilos de formato */
+#noticia-detalle strong {
+    font-weight: bold;
+}
+#noticia-detalle em {
+    font-style: italic;
+}
+#noticia-detalle u {
+    text-decoration: underline;
+}
+#noticia-detalle a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+#noticia-detalle a:hover {
+    color: var(--primary-dark);
+}
+
+
 
 /* Mobile Responsive */
 @media (max-width: 768px) {

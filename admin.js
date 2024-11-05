@@ -10,6 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Actualizar el año en el pie de página
     yearSpan.textContent = new Date().getFullYear();
 
+    // Inicializar el editor de texto enriquecido Quill
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Escribe el cuerpo de la noticia aquí...',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline'], 
+                ['link', 'blockquote'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }]
+            ]
+        }
+    });
+
     // Función para crear el slug del título de la noticia
     function createSlug(titulo) {
         return titulo.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
@@ -67,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const titulo = form.titulo.value;
         const descripcion = form.descripcion.value;
-        const cuerpo = form.cuerpo.value;
+        const cuerpo = quill.root.innerHTML; // Obtiene el HTML formateado del editor
         const imagen = form.imagen.value;
         const categoria = form.categoria.value;
         const slug = createSlug(titulo); // Generar slug a partir del título
@@ -83,15 +100,16 @@ document.addEventListener('DOMContentLoaded', () => {
             await noticiasRef.add({
                 titulo,
                 descripcion,
-                cuerpo,
+                cuerpo, // Guardar HTML formateado en Firebase
                 imagen,
                 categoria,
-                slug,  // Agregar el campo slug
+                slug,
                 fecha: firebase.firestore.FieldValue.serverTimestamp()
             });
             mensaje.textContent = 'Noticia agregada con éxito';
             mensaje.className = 'success';
             form.reset();
+            quill.setContents([]); // Limpiar el editor de Quill
         } catch (error) {
             console.error("Error al agregar la noticia: ", error);
             mensaje.textContent = 'Error al agregar la noticia: ' + error.message;

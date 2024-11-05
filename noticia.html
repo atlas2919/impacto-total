@@ -9,6 +9,10 @@
 
     <!-- Script de Google Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1043821580542678" crossorigin="anonymous"></script>
+
+    <!-- Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -17,8 +21,8 @@
     <main class="container">
         <section id="noticia-detalle">
             <h2 id="titulo"></h2>
-            <img id="imagen" alt="Imagen de la noticia">
-            <p id="cuerpo"></p>
+            <img id="imagen" alt="Imagen de la noticia" style="width:100%; max-width:600px;">
+            <div id="cuerpo"></div>
         </section>
     </main>
 
@@ -28,8 +32,8 @@
         </div>
     </footer>
 
+    <!-- Cargar el header de manera dinámica -->
     <script>
-        // Cargar header dinámicamente
         document.addEventListener('DOMContentLoaded', () => {
             fetch('header.html')
                 .then(response => response.text())
@@ -39,8 +43,12 @@
                 .catch(error => console.error('Error al cargar el header:', error));
         });
     </script>
+
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Configuración y lógica de Firebase -->
     <script src="config.js"></script>
     <script src="noticia.js"></script>
 </body>

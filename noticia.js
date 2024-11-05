@@ -21,7 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tituloEl.textContent = noticia.titulo;
                     imagenEl.src = noticia.imagen || 'https://via.placeholder.com/300x200';
-                    cuerpoEl.textContent = noticia.cuerpo;
+                    cuerpoEl.innerHTML = noticia.cuerpo; // Mostrar el HTML formateado
+
+                    // Hacer que los enlaces abran en una nueva pestaña
+                    const links = cuerpoEl.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    });
                 } else {
                     cuerpoEl.textContent = "Noticia no encontrada.";
                 }
