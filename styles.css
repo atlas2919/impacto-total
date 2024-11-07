@@ -622,6 +622,11 @@ footer {
     background-color: #5a6268;
 }
 
+#menu-items {
+    display: flex;
+    gap: 1rem;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     /* Ajuste del contenedor del encabezado */
@@ -629,6 +634,33 @@ footer {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    /* Menu hamburguesa y ocultamiento de la informacion */
+    .hamburger {
+        display: block;
+    }
+
+    #menu-items {
+        display: none; /* Ocultar el menú por defecto */
+        position: absolute;
+        top: 100px;
+        right: 0;
+        width: 100%;
+        background-color: #fff;
+        color: #fff;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #menu-items.active {
+        display: flex; /* Mostrar el menú al hacer clic en el icono de hamburguesa */
+    }
+    
+    #menu-items li {
+        margin: 10px 0;
     }
 
     #admin-options {

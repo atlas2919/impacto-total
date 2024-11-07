@@ -32,13 +32,24 @@
         </div>
     </footer>
 
-    <!-- Cargar el header de manera dinámica -->
     <script>
+        // Cargar header dinámicamente y agregar funcionalidad de hamburguesa
         document.addEventListener('DOMContentLoaded', () => {
             fetch('header.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header').innerHTML = data;
+
+                    // Configuración del menú hamburguesa después de cargar el header
+                    const hamburgerBtn = document.getElementById('hamburger-btn');
+                    const menuItems = document.getElementById('menu-items');
+
+                    if (hamburgerBtn && menuItems) {
+                        // Alternar el menú al hacer clic en el icono de hamburguesa
+                        hamburgerBtn.addEventListener('click', () => {
+                            menuItems.classList.toggle('active');
+                        });
+                    }
                 })
                 .catch(error => console.error('Error al cargar el header:', error));
         });
