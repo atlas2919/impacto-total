@@ -627,6 +627,38 @@ footer {
     gap: 1rem;
 }
 
+#compartir-redes {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#share-whatsapp {
+    background-color: #25D366;
+}
+
+#share-whatsapp:hover {
+    background-color: #1EBE5A;
+}
+
+.share-btn i {
+    font-size: 1.2rem;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     /* Ajuste del contenedor del encabezado */
@@ -708,5 +740,22 @@ footer {
         font-size: 14px;
         margin: 5px;
         width: 45%;
+    }
+
+    #compartir-redes {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        align-items: center;
+    }
+
+    .share-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.875rem; /* Reduce el tamaño de fuente en dispositivos móviles */
+    }
+
+    .share-btn i {
+        font-size: 1rem; /* Ajusta el tamaño del ícono */
     }
 }

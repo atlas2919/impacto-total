@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     yearSpan.textContent = new Date().getFullYear();
 
     if (slug) {
-        // Buscar la noticia en Firestore usando el campo 'slug'
         db.collection('noticias')
             .where("slug", "==", slug)
             .get()
@@ -21,9 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tituloEl.textContent = noticia.titulo;
                     imagenEl.src = noticia.imagen || 'https://via.placeholder.com/300x200';
-                    cuerpoEl.innerHTML = noticia.cuerpo; // Mostrar el HTML formateado
+                    cuerpoEl.innerHTML = noticia.cuerpo;
 
-                    // Hacer que los enlaces abran en una nueva pestaña
                     const links = cuerpoEl.querySelectorAll('a');
                     links.forEach(link => {
                         link.setAttribute('target', '_blank');
@@ -40,4 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         cuerpoEl.textContent = "No se ha especificado una noticia.";
     }
+
+    // Compartir en WhatsApp
+    const shareWhatsAppBtn = document.getElementById('share-whatsapp');
+    shareWhatsAppBtn.addEventListener('click', () => {
+        const whatsappUrl = `https://wa.me/?text=Mira esta noticia: ${encodeURIComponent(window.location.href)}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    // Compartir en Instagram (mostrar enlace para copiar)
+    const shareInstagramBtn = document.getElementById('share-instagram');
+    shareInstagramBtn.addEventListener('click', () => {
+        alert("Copia el enlace y compártelo en Instagram: " + window.location.href);
+    });
 });
