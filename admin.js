@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnRegresarBorrar = document.getElementById('btn-regresar-borrar');
     const formTitle = document.getElementById('form-title');
 
+    const programarNoticiaCheckbox = document.getElementById('programar-noticia');
+    const programacionFechaHora = document.getElementById('programacion-fecha-hora');
+
+
     // Variables para el modal de confirmación
     const confirmationModal = document.getElementById('confirmation-modal');
     const confirmDeleteBtn = document.getElementById('confirm-delete');
@@ -45,6 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 [{ 'color': [] }, { 'background': [] }],
                 [{ 'align': [] }]
             ]
+        }
+    });
+
+    programarNoticiaCheckbox.addEventListener('change', () => {
+        if (programarNoticiaCheckbox.checked) {
+            programacionFechaHora.style.display = 'block';
+        } else {
+            programacionFechaHora.style.display = 'none';
         }
     });
 
@@ -209,59 +221,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // Manejo del formulario de crear/modificar noticia
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
+    
         const titulo = form.titulo.value;
         const descripcion = form.descripcion.value;
         const cuerpo = quill.root.innerHTML;
         const imagen = form.imagen.value;
         const categoria = form.categoria.value;
         const slug = createSlug(titulo);
-
-        if (!titulo || !descripcion || !cuerpo || !categoria) {
-            mensaje.textContent = 'Por favor, completa todos los campos obligatorios.';
-            return;
+    
+        const programarNoticia = document.getElementById('programar-noticia').checked;
+        let programadaTimestamp = null;
+    
+        if (programarNoticia) {
+            const fechaProgramada = form['fecha-programada'].value;
+            const horaProgramada = form['hora-programada'].value;
+            if (fechaProgramada && horaProgramada) {
+                const programadaFecha = new Date(`${fechaProgramada}T${horaProgramada}:00`);
+                programadaTimestamp = firebase.firestore.Timestamp.fromDate(programadaFecha);
+            }
         }
-
+    
         try {
             const noticiasRef = db.collection('noticias');
+            const noticiaData = {
+                titulo,
+                descripcion,
+                cuerpo,
+                imagen,
+                categoria,
+                slug,
+                fecha: firebase.firestore.FieldValue.serverTimestamp(),
+                programada: programadaTimestamp,
+                publicada: !programarNoticia // Si no es programada, se marca como publicada inmediatamente
+            };
+    
             if (selectedNoticiaId) {
-                // Actualizar noticia existente
-                await noticiasRef.doc(selectedNoticiaId).update({
-                    titulo,
-                    descripcion,
-                    cuerpo,
-                    imagen,
-                    categoria,
-                    slug,
-                    fecha: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                await noticiasRef.doc(selectedNoticiaId).update(noticiaData);
                 mensaje.textContent = 'Noticia actualizada con éxito';
             } else {
-                // Crear nueva noticia
-                await noticiasRef.add({
-                    titulo,
-                    descripcion,
-                    cuerpo,
-                    imagen,
-                    categoria,
-                    slug,
-                    fecha: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                mensaje.textContent = 'Noticia agregada con éxito';
+                await noticiasRef.add(noticiaData);
+                mensaje.textContent = programarNoticia ? 'Noticia programada con éxito' : 'Noticia publicada con éxito';
             }
-
+    
             form.reset();
             quill.setContents([]);
             selectedNoticiaId = null;
-
-            // Volver a las opciones principales después de guardar
+    
             adminSection.style.display = 'none';
             adminOptions.style.display = 'block';
         } catch (error) {
             console.error("Error al guardar la noticia: ", error);
             mensaje.textContent = 'Error al guardar la noticia: ' + error.message;
         }
-    });
+    });    
 
     // Función para crear el slug del título de la noticia
     function createSlug(titulo) {

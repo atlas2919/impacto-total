@@ -13,6 +13,9 @@
     <!-- Box icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <!-- Script de Google Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1043821580542678" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <header>
@@ -83,8 +86,29 @@
                         <option value="innovacion">Innovacion</option>
                     </select>
                 </div>
-                    <button type="submit">Guardar Noticia</button>
-                </form>
+
+                <div class="form-group">
+                    <label for="programar-noticia">
+                        ¿Quieres programar esta noticia?
+                        <input type="checkbox" id="programar-noticia" name="programar-noticia">
+                    </label>
+                </div>
+                
+                <!-- Campos de fecha y hora programada, inicialmente ocultos -->
+                <div id="programacion-fecha-hora" style="display: none;">
+                    <div class="form-group">
+                        <label for="fecha-programada">Fecha de publicación programada</label>
+                        <input type="date" id="fecha-programada" name="fecha-programada">
+                    </div>
+                    <div class="form-group">
+                        <label for="hora-programada">Hora de publicación programada</label>
+                        <input type="time" id="hora-programada" name="hora-programada">
+                    </div>
+                </div>
+                    
+                <button type="submit">Guardar Noticia</button>
+
+            </form>
             <p id="mensaje"></p>
             <a href="#" id="btn-regresar-crear" class="regresar-btn">Regresar</a>
         </section>

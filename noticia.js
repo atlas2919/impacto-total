@@ -17,11 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!querySnapshot.empty) {
                     const doc = querySnapshot.docs[0];
                     const noticia = doc.data();
-
+    
+                    // Establecer contenido de la noticia
                     tituloEl.textContent = noticia.titulo;
                     imagenEl.src = noticia.imagen || 'https://via.placeholder.com/300x200';
                     cuerpoEl.innerHTML = noticia.cuerpo;
-
+    
+                    // Actualizar las etiquetas Open Graph
+                    document.getElementById('og-title').setAttribute('content', noticia.titulo);
+                    document.getElementById('og-description').setAttribute('content', noticia.descripcion);
+                    document.getElementById('og-image').setAttribute('content', noticia.imagen || 'https://via.placeholder.com/300x200');
+                    document.getElementById('og-url').setAttribute('content', window.location.href);
+    
+                    // Ajustar enlaces de apertura en nueva pestaña
                     const links = cuerpoEl.querySelectorAll('a');
                     links.forEach(link => {
                         link.setAttribute('target', '_blank');
@@ -35,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error("Error al cargar la noticia: ", error);
                 cuerpoEl.textContent = "Error al cargar la noticia.";
             });
-    } else {
-        cuerpoEl.textContent = "No se ha especificado una noticia.";
-    }
+    }    
 
     // Compartir en WhatsApp
     const shareWhatsAppBtn = document.getElementById('share-whatsapp');
